@@ -105,7 +105,7 @@ class Pruner:
             n = param.data.shape[axis]
             mask = np.ones(n, dtype=bool)
             mask[indices] = False
-            keep_indices = torch.tensor(np.arange(n)[mask]).to(self.device)
+            keep_indices = torch.tensor(np.arange(n)[mask]).type(torch.LongTensor).to(self.device)
             param.data = param.data.index_select(axis, keep_indices)
             # If gradient is not None, we need to slice it as well
             if param.grad is not None:
